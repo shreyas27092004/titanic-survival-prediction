@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survival Prediction</title>
+    
+    <!-- This link correctly points to the CSS file in the 'static' folder -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Tailwind CSS is loaded from a CDN for styling utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for a clean, modern typeface -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="w-full max-w-4xl mx-auto">
+        <!-- Header Section -->
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">Titanic Survival Prediction</h1>
+            <!-- FIX: Added type="button" to ensure this is treated as a clickable button -->
+            <button type="button" id="theme-switcher" class="theme-switcher-btn p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color">
+                <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </header>
+
+        <main>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Step 1: Upload -->
+                <div class="card rounded-lg p-6 shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-2">Step 1: Upload Dataset</h2>
+                    <div id="drop-area" class="relative file-input-label text-center rounded-lg">
+                        <input type="file" id="csv-file" accept=".csv" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <p id="file-label" class="text-gray-500 dark:text-gray-400">Drag & drop a CSV file here, or click to select</p>
+                    </div>
+                    <p id="upload-status" class="mt-4 text-center text-sm font-medium"></p>
+                </div>
+
+                <!-- Step 2: Analyze -->
+                <div class="card rounded-lg p-6 shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-2">Step 2: Run Analysis</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Upload the `train.csv` file to enable analysis.</p>
+                    <!-- FIX: Added type="button" to ensure this is treated as a clickable button -->
+                    <button type="button" id="analyze-btn" class="w-full btn-primary font-bold py-3 px-4 rounded-lg">
+                        Start Analysis
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="card rounded-lg p-6 shadow-md mt-8 hidden">
+                <h2 class="text-2xl font-semibold mb-4">Analysis Results</h2>
+                <div id="results-summary" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 text-center"></div>
+                
+                <!-- Container for Charts -->
+                <div id="chart-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8"></div>
+                
+                <h3 class="text-xl font-semibold mb-4">Prediction Details (First 100 Rows)</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-gray-100 dark:bg-gray-700">
+                            <tr>
+                                <th class="p-3 text-left font-semibold">Passenger ID</th>
+                                <th class="p-3 text-left font-semibold">Name</th>
+                                <th class="p-3 text-left font-semibold">Predicted Outcome</th>
+                                <th class="p-3 text-left font-semibold">Survival Probability</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
+    <!-- Link to external JavaScript in the static folder -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

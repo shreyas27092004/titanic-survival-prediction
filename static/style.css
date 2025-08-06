@@ -1,0 +1,102 @@
+/* Basic styles and theme variables */
+:root {
+    --bg-light: #ffffff;
+    --text-light: #111827;
+    --border-light: #e5e7eb;
+    --bg-dark: #1f2937;
+    --text-dark: #f9fafb;
+    --border-dark: #4b5563;
+    --accent-color: #3b82f6;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Theme */
+.light {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+}
+
+/* Dark Theme */
+.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+/* Custom styles for components to work with themes */
+.card {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.light .card {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-light);
+}
+.dark .card {
+    background-color: #374151;
+    border: 1px solid var(--border-dark);
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+    transition: background-color 0.2s ease;
+}
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+/* CORRECTED: Changed the cursor for the disabled button */
+.btn-primary:disabled {
+    background-color: #9ca3af;
+    cursor: default; /* Changed from 'not-allowed' to 'default' */
+}
+
+.theme-switcher-btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.light .theme-switcher-btn {
+    background-color: #f3f4f6;
+    color: var(--text-light);
+}
+.dark .theme-switcher-btn {
+    background-color: #4b5563;
+    color: var(--text-dark);
+}
+
+/* Custom file input styling */
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+}
+.file-input-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.file-input-label {
+     border: 2px dashed;
+     padding: 2rem 4rem;
+     cursor: pointer;
+     transition: all 0.2s ease;
+}
+.light .file-input-label {
+    border-color: var(--border-light);
+}
+.dark .file-input-label {
+    border-color: var(--border-dark);
+}
+.file-input-label:hover {
+    border-color: var(--accent-color);
+}
+.file-input-label.dragover {
+     border-color: var(--accent-color);
+     background-color: rgba(59, 130, 246, 0.1);
+}
